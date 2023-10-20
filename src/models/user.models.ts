@@ -1,4 +1,4 @@
-import { ObjectId, MongoClient, Document } from 'mongodb';
+import { ObjectId, MongoClient } from 'mongodb';
 
 export interface User {
   _id?: ObjectId;
