@@ -1,11 +1,13 @@
 import { ObjectId, MongoClient } from 'mongodb';
 
+
 export interface User {
   _id?: ObjectId;
   name: string;
   email: string;
   password: string;
 }
+
 
 export class UserModel {
   private static collectionName = 'users';

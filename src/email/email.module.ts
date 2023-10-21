@@ -1,7 +1,7 @@
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { EmailController } from './email.controller';
-import { emailModule } from './methods';
+import { emailModule } from './nodemailer-transport';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
