@@ -1,11 +1,21 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { EmailTemplates } from './email-templates.enum';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('email')
 export class EmailController {
-    constructor(private maileService: MailerService){}
+    jwtService: JwtService;
 
+    constructor(private maileService: MailerService) {
+        this.jwtService = new JwtService({
+            secret: process.env.JWT_SECRET,
+            signOptions: { expiresIn: '24h' }
+        })
+    }
+    
+       
+    
     @Post('welcome')
     async welcome(@Body()  payload){
         await this.maileService.sendMail({
@@ -26,6 +36,8 @@ export class EmailController {
 
     @Post('resetpass')
     async resetPassword(@Body()  payload){
+        let token = this.jwtService.sign({ email: payload.toemail })
+        
         await this.maileService.sendMail({
             to: payload.toemail,
             from: process.env.senderEmail,
