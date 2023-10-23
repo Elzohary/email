@@ -7,9 +7,9 @@ import { JwtService } from '@nestjs/jwt';
 export class EmailController {
     jwtService: JwtService;
 
-    constructor(private maileService: MailerService) {
-        this.jwtService = new JwtService({
-            secret: process.env.JWT_SECRET,
+    constructor(private maileService: MailerService, private JtService: JwtService) {
+       this.JtService= new JwtService ({
+            secret: 'mohamed',
             signOptions: { expiresIn: '24h' }
         })
     }
@@ -35,21 +35,21 @@ export class EmailController {
     }
 
     @Post('resetpass')
-    async resetPassword(@Body()  payload){
-        let token = this.jwtService.sign({ email: payload.toemail })
-        
+    async resetPassword(@Body()  payoad){
+        let emailoken = await this.JtService.signAsync({toemail:payoad.toemail}, {expiresIn: '24h'}) 
+
         await this.maileService.sendMail({
-            to: payload.toemail,
+            to: payoad.toemail,
             from: process.env.senderEmail,
             subject: 'Reset Password',
             template: EmailTemplates.PASSWORD_RESET,
             context: {
-                forgotPassword: payload
+                forgotPassword: payoad,
+                emailtoken: emailoken
 
 
             }
         });
-    
         
         
         return 'mail sent'

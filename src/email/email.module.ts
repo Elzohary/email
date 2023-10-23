@@ -3,9 +3,11 @@ import { Module } from '@nestjs/common';
 import { EmailController } from './email.controller';
 import { emailModule } from './nodemailer-transport';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports:[
+      JwtModule,
       emailModule,
       ConfigModule.forRoot({
         isGlobal: true,

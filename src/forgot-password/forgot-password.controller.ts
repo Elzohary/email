@@ -1,6 +1,6 @@
 import { ForgotPasswordService } from './forgot-password.service';
 // forgot-password.controller.ts
-import { Body, Controller, Get, Param, Post, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Res } from '@nestjs/common';
 
 
 @Controller('forgot-password')
@@ -8,22 +8,22 @@ export class ForgotPasswordController {
 
     constructor(private ForgotPasswordService: ForgotPasswordService) {}
 
-  @Get()
-  @Render('forgot-password') // Render the HTML page
-  showForgotPasswordPage() {
-    return { title: 'Forgot Password' };
+
+  @Get('resetpassword/:token')
+  renderMyView(@Res() res, @Param() token) {
+    res.render('forgot-password');
   }
 
-  @Post('resetpasswprd')
-  async reserPassword(
-    @Body() password,cPassword,
-    @Param() token
-  ) {
+
+  @Post('resetpassword/:token')
+  async reserPassword(@Body() password,cPassword, @Param() token ) {
    try {
     return await this.ForgotPasswordService.resetPassword(password,cPassword,token);
-   } catch (error) {
+    
+  } catch (error) {
     console.log(error);
     
-   }
+  }
+  
   }
 }
