@@ -1,12 +1,12 @@
+import { JwtModule } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
 import { ForgotPasswordController } from './forgot-password.controller';
 import { ForgotPasswordService } from './forgot-password.service';
 import { DatabaseModule } from 'src/db/DatabaseModule';
-import { JwtModule, JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports:[DatabaseModule,JwtModule],
+  imports:[DatabaseModule],
   controllers: [ForgotPasswordController],
-  providers: [ForgotPasswordService,JwtService]
+  providers: [ForgotPasswordService]
 })
 export class ForgotPasswordModule {}
