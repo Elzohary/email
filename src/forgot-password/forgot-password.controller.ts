@@ -1,6 +1,6 @@
 import { ForgotPasswordService } from './forgot-password.service';
 // forgot-password.controller.ts
-import { Body, Controller, Get, Param, Post, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Render, Res } from '@nestjs/common';
 
 
 @Controller('forgot-password')
@@ -19,7 +19,7 @@ export class ForgotPasswordController {
     @Param() token
   ) {
    try {
-    return await this.ForgotPasswordService.resetPassword(password,cPassword,token);
+    return await this.forgotPasswordService.resetPassword(password,cPassword,token);
    } catch (error) {
     console.log(error);
     

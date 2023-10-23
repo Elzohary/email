@@ -16,7 +16,7 @@ export class ForgotPasswordService {
     if(password !== cPassword){
         return 'Passwords do not match';
     }else{
-        let hashed = await bcrypt.hash(password, 10);
+        let hashed = await hash(password, 10);
     await this.db.collection('users').updateOne({ email: email }, { $set: { password: hashed } });
     return 'Password has been changed';
     }
