@@ -13,7 +13,7 @@ export class ForgotPasswordController {
     res.render('forgot-password');
   }
 
-  @Post('resetpasswprd')
+  @Post('resetpassword')
   async reserPassword(
     @Body() password,cPassword,
     @Param() token
