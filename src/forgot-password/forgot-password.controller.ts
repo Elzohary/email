@@ -14,7 +14,7 @@ export class ForgotPasswordController {
   }
 
   @Post('resetpassword')
-  async reserPassword(
+  async resetPassword(
     @Body() password,cPassword,
     @Param() token
   ) {
